@@ -1,4 +1,8 @@
-class nodo{
+class Nodo{
+    nodo(dato){
+        this.dato=dato
+        this.sig=this.ant=null
+    }
     nodo(){
         this.dato=null
         this.sig=this.ant=null
@@ -25,3 +29,4 @@ class nodo{
         this.ant=ant
     }
 }
+module.exports=Nodo

@@ -1,4 +1,5 @@
 const readline = require('readline');
+const Lista = require("./Lista")
 
 class Menu {
   constructor() {
@@ -71,6 +72,7 @@ class Menu {
     });
   }
 }
+
 
 const menu = new Menu();
 menu.iniciar();

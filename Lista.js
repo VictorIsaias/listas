@@ -16,7 +16,7 @@ class Lista{
         }
         else{
             if(this.p==this.f){
-                console.log(p.dato)
+                console.log(this.p.dato)
             }
             else {
                 var resp
@@ -130,9 +130,9 @@ class Lista{
             return null;
         }
         let nodo = this.p;
-        while(modo.sig !== null){
-           nodo = nodo.sig 
-           nodo.ant = null
+        while(nodo.sig !== null){
+            nodo = nodo.sig 
+            nodo.ant = null
            return;
         }
     }
@@ -143,7 +143,7 @@ class Lista{
             return null;
         }else{
             let nodo = this.p
-            if(nodo.buscar(dato) == valor){
+            if(nodo.buscar(this.p.dato) == valor){
                 nodo.dato = valor;
                 console.log(`Dato actualizado: ${valor}`)
                 return;

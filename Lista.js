@@ -125,7 +125,16 @@ class Lista{
     }
 
     reiniciar(){
-        // desconectar todos los nodos de ant y sig para que el garbage colector los mande a chingar su madre
+        if(this.p == null){
+            console.log("La lista esta vacia")
+            return null;
+        }
+        let nodo = this.p;
+        while(modo.sig !== null){
+           nodo = nodo.sig 
+           nodo.ant = null
+           return;
+        }
     }
 
     modificar(valor){

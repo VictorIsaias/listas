@@ -7,6 +7,7 @@ class Menu {
       input: process.stdin,
       output: process.stdout
     });
+    this.list=new Lista()
   }
 
   mostrarMenu() {
@@ -26,12 +27,19 @@ class Menu {
     switch (opcion) {
       case 1:
         console.log("Inicializando la aplicación.");
+        this.list.reiniciar();
+        
         break;
       case 2:
         console.log("Mostrando datos.");
+        this.list.mostrar();
         break;
       case 3:
         console.log("Buscando información.");
+        rl.question("¿Mostrar lista al derecho o al revez? (d/r) ", v => {
+          resp=this.list.buscar(v)
+          console.log(resp)
+        })
         break;
       case 4:
         console.log("Insertando nuevo dato.");
@@ -49,25 +57,26 @@ class Menu {
         break;
       case 8:
         console.log("Saliendo de la aplicación.");
+        this.rl.close();
         break;
       default:
         console.log("Opción no válida.");
     }
+    
+    iniciar()
   }
 
   iniciar() {
     this.mostrarMenu();
-
     this.rl.question("Ingrese el número de la opción que desea: ", (opcion) => {
+      
       opcion = parseInt(opcion);
-      while(opcion =! 8){
-        if (isNaN(opcion) || opcion < 1 || opcion > 8) {
-            this.rl.close();
-          }else{
-            this.ejecutarOpcion(opcion);
-            this.rl.question("Regresar al menu?")
-            this.rl.close();
-          }
+      if(isNaN(opcion) || opcion < 1 || opcion > 8) {
+        this.rl.close();
+      }
+      else {
+        this.ejecutarOpcion(opcion);
+        
       }
     });
   }

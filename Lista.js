@@ -83,8 +83,25 @@ class Lista{
         }
     }
 
-    eliminar(){
+    eliminar(valor){
+        if(this.p == null){
+            console.log("La lista esta vacia")
+            return null
+        }
+        if(this.p.dato==valor){
+            this.p = null
+            console.log(`Se elimino el unico dato: ${valor}`)
+            return;
+        }
 
+        let nodo = this.p;
+        while(nodo !== null && nodo.dato !== valor){
+            nodo = nodo.sig;
+        }
+        if(nodo == null){
+            console.log("No se encontro el valor en la lista")
+            return;
+        }
     }
 
     buscar(valor){
@@ -108,11 +125,24 @@ class Lista{
     }
 
     reiniciar(){
-
+        // desconectar todos los nodos de ant y sig para que el garbage colector los mande a chingar su madre
     }
 
-    modificar(){
-
+    modificar(valor){
+        if(this.p == null){
+            console.log("La lista esta vacia");
+            return null;
+        }else{
+            let nodo = this.p
+            if(nodo.buscar(dato) == valor){
+                nodo.dato = valor;
+                console.log(`Dato actualizado: ${valor}`)
+                return;
+            }else{
+                console.log("El nodo a modificar no existe en la lsita");
+                return;
+            }
+        }
     }
     
 

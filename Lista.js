@@ -1,4 +1,9 @@
 const Nodo=require('./Nodo.js')
+const readline = require('readline');
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+  });
 class Lista{
     Lista() {
         this.p=new Nodo()
@@ -6,43 +11,75 @@ class Lista{
     }
 
     mostrar(){
-        if(p==null){
+        if(this.p==null){
             console.log("lista vacia")
         }
         else{
-            if(p==f){
+            if(this.p==this.f){
                 console.log(p.dato)
             }
             else {
-                resp=prompt("¿Mostrar lista al derecho o al revez? (d/r)")
-                if(resp=="d"){
-                    q=this.p
-                    while(q!=null){
-                        console.log(q.dato)
-                        q=q.sig
+                var resp
+                 rl.question("¿Mostrar lista al derecho o al revez? (d/r) ", l => {
+                    resp=l
+                    if(resp=="d"){
+                        var q=this.p
+                        while(q!=null){
+                            console.log(q.dato)
+                            q=q.sig
+                        }
+                    }else if(resp=="r"){
+                        var q=this.f
+                        while(q!=null){
+                            console.log(q.dato)
+                            q=q.ant
+                        }
                     }
-                }else if(resp=="r"){
-                    q=this.f
-                    while(q!=null){
-                        console.log(q.dato)
-                        q=q.ant
-                    }
-                }
+                    rl.close();
+                  })
+
             }
         }
     }
 
     insertar(valor){
-        if(this.p==null){
-            this.p=new Nodo(valor)
+
+        var r=this.buscar(valor)
+        if(r==null){
+            this.f=this.p=new Nodo(valor)
+            
         }
         else {
-            var r=this.buscar(valor)
             var n=new Nodo(valor)
-            n.sig=r
-            n.ant=r.ant
-            r.ant.sig=n
-            r.ant=n
+
+            if(valor.localeCompare(r.dato,'es')<1){
+
+                n.sig=r
+
+                if(r.ant==null){
+                    this.p=n
+                    n.ant=null
+                }
+                else{
+                    n.ant=r.ant
+                    r.ant.sig=n
+                }
+                r.ant=n
+            }
+            else {
+                n.ant=r
+    
+                if(r.sig==null){
+                    this.f=n
+                    n.sig=null
+                }else{
+                    n.sig=r.sig
+                    r.sig.ant=n
+                }
+
+                r.sig=n
+
+            }
         }
     }
 
@@ -74,12 +111,12 @@ class Lista{
             var r=new Nodo()
             if(valor[0]<='m'){
                 r=this.p
-                while (r.sig!=null&&valor.localeCompare(r.sig.dato,'es')==-1){
+                while (r.sig!=null&&valor.localeCompare(r.sig.dato,'es')==1){
                     r=r.sig
                 }
             }else if(valor[0]>='m'){
                 r=this.f
-                while (valor.localeCompare(r.ant.dato,'es')==-1&&r.ant!=null){
+                while (r.ant!=null&&valor.localeCompare(r.ant.dato,'es')==-1){
                     r=r.ant
                 }
             }
